@@ -63,6 +63,7 @@ or
 ```shell
 ./mvnw clean package
 ```
+Archive files with distributed packages created in `target\dist` folder.
 
 ⚠️ **Note:** When using Maven Wrapper with `Git Bash` on Windows, ensure that the `/tmp` mount to folder with write permission.
 
@@ -73,15 +74,7 @@ or
 - Maven 3.8+
 - Scene Builder 17
 
-To debug with your IDE, configure the following VM options in your run configuration:
-* --module-path
-* --add-modules
-
-To get the correct values, run Maven with debug output:
-```shell
-./mvnw javafx:run -X
-```
-Copy the `module-path` and `add-modules` values from the output.
+To run / debug with your IDE, set `burai.app.Launcher` as entry point
 
 ## Documentation
 ### Prerequisites

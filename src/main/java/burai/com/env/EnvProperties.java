@@ -37,7 +37,7 @@ public final class EnvProperties {
 
     private String filePathUser;
 
-    protected EnvProperties(String propName) {
+     EnvProperties(String propName) {
         if (propName == null) {
             throw new IllegalArgumentException("propName is null.");
         }
@@ -47,12 +47,12 @@ public final class EnvProperties {
             throw new IllegalArgumentException("propName is empty.");
         }
 
-        this.createPropertiesSytem(propName2);
+        this.createPropertiesSystem(propName2);
         this.propertiesUser = null;
         this.filePathUser = null;
     }
 
-    protected synchronized void setUserFile(String filePath) {
+     synchronized void setUserFile(String filePath) {
         if (filePath == null) {
             return;
         }
@@ -79,18 +79,9 @@ public final class EnvProperties {
         }
 
         // check version
-        String ver = this.propertiesUser.getProperty("version");
+        String userVersion = this.propertiesUser.getProperty("version");
 
-        double verNum = 0.0;
-        if (ver != null) {
-            try {
-                verNum = Double.parseDouble(ver);
-            } catch (NumberFormatException e) {
-                verNum = 0.0;
-            }
-        }
-
-        if (Math.abs(verNum - Version.VERSION_NUMBER) > 1.0e-8) {
+        if (Version.hasMajorMinorDifference(userVersion)) {
             try {
                 this.clonePropertiesSystem(filePath2);
             } catch (IOException e) {
@@ -102,7 +93,7 @@ public final class EnvProperties {
         }
     }
 
-    protected synchronized String getProperty(String key) {
+     synchronized String getProperty(String key) {
         if (key == null) {
             return null;
         }
@@ -115,16 +106,13 @@ public final class EnvProperties {
         }
 
         if (this.propertiesSystem != null) {
-            String value = this.propertiesSystem.getProperty(key);
-            if (value != null) {
-                return value;
-            }
+            return this.propertiesSystem.getProperty(key);
         }
 
         return null;
     }
 
-    protected synchronized void setProperty(String key, String value) {
+     synchronized void setProperty(String key, String value) {
         if (key == null) {
             return;
         }
@@ -140,7 +128,7 @@ public final class EnvProperties {
         }
     }
 
-    private void createPropertiesSytem(String propName) {
+    private void createPropertiesSystem(String propName) {
         URL url = propName == null ? null : EnvProperties.class.getResource(propName);
         if (url == null) {
             return;
@@ -187,24 +175,9 @@ public final class EnvProperties {
             return;
         }
 
-        BufferedInputStream inputStream = null;
-
-        try {
-            inputStream = new BufferedInputStream(url.openStream());
+        try (BufferedInputStream inputStream = new BufferedInputStream(url.openStream())) {
             this.propertiesSystem = new Properties();
             this.propertiesSystem.load(inputStream);
-
-        } catch (IOException e1) {
-            throw e1;
-
-        } finally {
-            if (inputStream != null) {
-                try {
-                    inputStream.close();
-                } catch (IOException e2) {
-                    throw e2;
-                }
-            }
         }
     }
 
@@ -213,33 +186,14 @@ public final class EnvProperties {
             return;
         }
 
-        Reader reader = null;
-
-        try {
-            reader = new BufferedReader(new FileReader(filePath.trim()));
+        try (Reader reader = new BufferedReader(new FileReader(filePath.trim()))) {
             this.propertiesUser = new Properties();
             this.propertiesUser.load(reader);
-
-        } catch (IOException e1) {
-            throw e1;
-
-        } finally {
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (IOException e2) {
-                    throw e2;
-                }
-            }
         }
     }
 
     private void storePropertiesUser(String filePath) throws IOException {
-        if (filePath == null) {
-            return;
-        }
-
-        if (this.propertiesUser == null) {
+        if (filePath == null || this.propertiesUser == null) {
             return;
         }
 
@@ -247,11 +201,7 @@ public final class EnvProperties {
     }
 
     private void clonePropertiesSystem(String filePath) throws IOException {
-        if (filePath == null) {
-            return;
-        }
-
-        if (this.propertiesSystem == null) {
+        if (filePath == null || this.propertiesSystem == null) {
             return;
         }
 
@@ -259,27 +209,12 @@ public final class EnvProperties {
     }
 
     private void writeProperties(String filePath, Properties properties) throws IOException {
-        if (filePath == null) {
+        if (filePath == null || properties == null) {
             return;
         }
 
-        if (properties == null) {
-            return;
-        }
-
-        Writer writer = null;
-
-        try {
-            writer = new BufferedWriter(new FileWriter(filePath.trim()));
+        try (Writer writer = new BufferedWriter(new FileWriter(filePath.trim()))) {
             properties.store(writer, "These are properties of BURAI");
-
-        } catch (IOException e) {
-            throw e;
-
-        } finally {
-            if (writer != null) {
-                writer.close();
-            }
         }
     }
 }
