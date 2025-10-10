@@ -9,27 +9,26 @@ Setting
   - "/Applications/BURAI1.3.app" for Max OSX
   - "/usr/share/applications/BURAI1.3" for Ubuntu
 
-3. Install `JRE1.8 or later version <https://java.com/download/>`_, if your computer does not have it.
+
+3. Install `JRE17 or later version <https://java.com/download/>`_, if your computer does not have it.
    For Ubuntu, you can get libraries of Java as
 
-  .. code-block:: c
+  .. code-block:: bash
 
-       > sudo apt-get install openjdk-8-jdk
-       > sudo apt-get install openjfx
+       > sudo apt-get install openjdk-17-jdk
 
-4. If you want to use MPI for Mac OSX, the library of OpenMPI has to be installed through MacPorts as
+4. If you want to use MPI for Mac OSX, install OpenMPI using Homebrew as
 
-  .. code-block:: c
+  .. code-block:: bash
 
-       > sudo port install openmpi-gcc6
-       > sudo port select --set mpi openmpi-gcc6-fortran
+       > brew install open-mpi
 
 5. If you want to use precompiled executables of QE for Ubuntu,
    GFortran and OpenMPI have to be installed through apt-get as.
 
-  .. code-block:: c
+  .. code-block:: bash
 
        > sudo apt-get install gfortran
        > sudo apt-get install openmpi-bin libopenmpi-dev
 
-6. For Ubuntu, executing BURAI1.3/makeLauncher.sh yields the launcher BURAI.desktop .
+6. For Ubuntu, executing burai-1.3.3/makeLauncher.sh yields the launcher BURAI.desktop .

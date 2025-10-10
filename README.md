@@ -4,6 +4,8 @@ A graphical user interface (GUI) system for [Quantum ESPRESSO](http://www.quantu
 
 BURAI simplifies quantum mechanical calculations by providing an intuitive interface for computational materials science and first-principles simulations.
 
+⚠️ Note: On multi-monitor systems, JavaFX dropdown menus may not display correctly, especially on monitors with different pixel resolutions.
+If this occurs, try moving the Burai window to a different monitor or adjust the window’s vertical alignment using the top margin or center in your operating system’s display settings.
 ---
 ## Features
 - **User-friendly GUI** for Quantum ESPRESSO
@@ -59,11 +61,11 @@ For all platforms:
 ```shell
 ./mvnw clean package -P dist-win,dist-linux,dist-mac,dist-mac-aarch64
 ```
-or
+By default, created package for a Linux platform.
 ```shell
 ./mvnw clean package
 ```
-Archive files with distributed packages created in `target\dist` folder.
+Distributed packages located in the `target/dist` directory.
 
 ⚠️ **Note:** When using Maven Wrapper with `Git Bash` on Windows, ensure that the `/tmp` mount to folder with write permission.
 
@@ -78,12 +80,12 @@ To run / debug with your IDE, set `burai.app.Launcher` as entry point
 
 ## Documentation
 ### Prerequisites
-* Python 3.x
+* [Python 3.x](https://www.python.org)
 * Pip (Python package manager)
-* Sphinx: pip install sphinx
-* (For PDF) LaTeX distribution (e.g., MiKTeX, TeX Live)
-* (For PDF) Perl
-* (For PDF) ImageMagick
+* Sphinx: `pip install sphinx`
+* (For PDF) LaTeX distribution (e.g., [MiKTeX](https://miktex.org/), [TeX Live](https://tug.org/texlive/))
+* (For PDF) Perl ([Windows version Perl](https://strawberryperl.com/))
+* (For PDF) [ImageMagick](https://imagemagick.org/)
 
 ### Build Documentation Instructions
 1. Navigate to the docs directory:
@@ -91,7 +93,7 @@ To run / debug with your IDE, set `burai.app.Launcher` as entry point
 2. View available formats:
 3. Build documentation:
 ```make html```
-4. View documentation:
+4. View documentation:Mi
    * HTML documentation:
    ```make html```
    * ePub documentation:

@@ -111,7 +111,7 @@ public class QEFXAboutDialog extends Dialog<ButtonType> implements Initializable
             return;
         }
 
-        String burai = "BURAI" + Version.VERSION;
+        String burai = "BURAI " + Version.VERSION;
         String qeWeb = Environments.getEspressoWebsite();
 
         String message = """

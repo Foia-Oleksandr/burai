@@ -27,7 +27,7 @@ public class QEFXIsolatedController extends QEFXInputController {
 
     public QEFXIsolatedController(QEFXMainController mainController, QEInput input) {
         super(mainController, input);
-        // TODO 自動生成されたコンストラクター・スタ�?
+        // TODO Auto-generated constructor starter
     }
 
     @Override

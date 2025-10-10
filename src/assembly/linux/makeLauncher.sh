@@ -11,6 +11,7 @@ echo "Type=Application"                         >> ${FILE}
 echo "Terminal=false"                           >> ${FILE}
 echo "Version=1.3"                              >> ${FILE}
 echo "Name=BURAI"                               >> ${FILE}
+echo "StartupWMClass=burai.app.QEFXMain"        >> ${FILE}
 echo "GenericName=GUI of Quantum ESPRESSO"      >> ${FILE}
 echo "Comment=BURAI is GUI of Quantum ESPRESSO" >> ${FILE}
 echo "Path=${PWD}/bin"                          >> ${FILE}

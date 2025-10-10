@@ -38,6 +38,9 @@ import javafx.scene.control.Dialog;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import static burai.com.env.EnvironmentProperties.WINDOW_HEIGHT;
+import static burai.com.env.EnvironmentProperties.WINDOW_WIDTH;
+
 public class QEFXMain extends Application {
 
     private static Stage mainStage = null;
@@ -65,10 +68,8 @@ public class QEFXMain extends Application {
             stylesheets.clear();
 
             for (String styleSheetName : STYLE_SHEET_NAMES) {
-                URL url = null;
-                if (styleSheetName != null) {
-                    url = QEFXMain.class.getResource(styleSheetName);
-                }
+                URL url;
+                url = QEFXMain.class.getResource(styleSheetName);
 
                 String cssName = null;
                 if (url != null) {
@@ -326,10 +327,12 @@ public class QEFXMain extends Application {
 
             // setup QEFXMainController
             controller.setStage(mainStage);
-            controller.setMaximized(Environments.isWindows());
             controller.setFullScreen(false);
             controller.setResizable(true);
             controller.setExplorer(new QEFXExplorer(controller));
+
+            setWindowSize(stage);
+            storeWindowSizeOnClose(stage);
 
             // show Stage
             initializeTitleBarIcon(mainStage);
@@ -341,6 +344,20 @@ public class QEFXMain extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void setWindowSize(Stage stage) {
+        double width = Environments.getDoubleProperty(WINDOW_WIDTH, 800);
+        double height = Environments.getDoubleProperty(WINDOW_HEIGHT, 600);
+        stage.setWidth(width);
+        stage.setHeight(height);
+    }
+
+    private void storeWindowSizeOnClose(Stage stage) {
+        stage.setOnCloseRequest(event -> {
+            Environments.setProperty(WINDOW_WIDTH, stage.getWidth());
+            Environments.setProperty(WINDOW_HEIGHT, stage.getHeight());
+        });
     }
 
     private void showInitialFiles(QEFXMainController controller) {
