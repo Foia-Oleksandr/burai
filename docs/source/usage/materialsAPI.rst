@@ -13,3 +13,12 @@ Materials API
 |    :align: center                                      |
 +--------------------------------------------------------+
 
+| For accessing data you need set `api key`.
+| Your API key can be found on your `profile dashboard page <https://next-gen.materialsproject.org/dashboard>`_ once logged in.
+| Click `Materials API` logo to show materials API configuration dialog.
+
++--------------------------------------------------------+
+| .. image:: ../../img/imgMaterialProject_api_conf.png   |
+|    :scale: 100 %                                       |
+|    :align: center                                      |
++--------------------------------------------------------+

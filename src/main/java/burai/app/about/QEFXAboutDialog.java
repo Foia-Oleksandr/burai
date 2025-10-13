@@ -111,34 +111,35 @@ public class QEFXAboutDialog extends Dialog<ButtonType> implements Initializable
             return;
         }
 
-        String ls = System.lineSeparator();
-        String burai = "BURAI" + Version.VERSION;
+        String burai = "BURAI " + Version.VERSION;
         String qeWeb = Environments.getEspressoWebsite();
 
-        String message = "";
-        message = message + burai + " is a GUI system of Quantum ESPRESSO <" + qeWeb + ">." + ls;
-        message = message + ls;
-        message = message + "This system is developed as a JavaFX application, and requires JRE1.8" + ls;
-        message = message + "or later version of runtime environment." + ls;
-        message = message + ls;
-        message = message + "The following external libraries are used:" + ls;
-        message = message + "  - exp4j  (Apache License 2.0, http://www.objecthunter.net/exp4j/)" + ls;
-        message = message + "  - Gson   (Apache License 2.0, https://github.com/google/gson)" + ls;
-        message = message + "  - JCodec (FreeBSD License,    http://jcodec.org)" + ls;
-        message = message + ls;
-        message = message + "All of SVG icons are from FLATICON <http://www.flaticon.com>." + ls;
-        message = message + ls;
-        message = message + "----------------------------------------------------------------------------" + ls;
-        message = message + "LICENSE:" + ls;
-        message = message + "----------------------------------------------------------------------------" + ls;
-        message = message + "  BURAI is free software; you can redistribute it and/or modify" + ls;
-        message = message + "  it under the terms of the Apache License, Version 2.0." + ls;
-        message = message + ls;
-        message = message + "  This program is distributed in the hope that it will be useful," + ls;
-        message = message + "  but WITHOUT ANY WARRANTY; without even the implied warranty of" + ls;
-        message = message + "  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE." + ls;
-        message = message + "  See <http://www.apache.org/licenses/LICENSE-2.0>, for more details." + ls;
-        message = message + "----------------------------------------------------------------------------" + ls;
+        String message = """
+                %s is a GUI system of Quantum ESPRESSO <%s>.
+                
+                This system is developed as a JavaFX application, and requires JRE17
+                or later version of runtime environment.
+                
+                The following external libraries are used:
+                  - exp4j  (Apache License 2.0, https://www.objecthunter.net/exp4j/)
+                  - Gson   (Apache License 2.0, https://github.com/google/gson)
+                  - JCodec (FreeBSD License,    https://jcodec.org)
+                
+                All of SVG icons are from FLATICON <https://www.flaticon.com>.
+                
+                ----------------------------------------------------------------------------
+                LICENSE:
+                ----------------------------------------------------------------------------
+                  BURAI is free software; you can redistribute it and/or modify
+                  it under the terms of the Apache License, Version 2.0.
+                
+                  This program is distributed in the hope that it will be useful,
+                  but WITHOUT ANY WARRANTY; without even the implied warranty of
+                  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+                  See <https://www.apache.org/licenses/LICENSE-2.0>, for more details.
+                ----------------------------------------------------------------------------
+                """.formatted(burai, qeWeb);
+
 
         this.textArea.setText(message);
     }
