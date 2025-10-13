@@ -572,7 +572,7 @@ public class QEFXOptController extends QEFXInputController {
             item.setDefault("all", this.cellFreeButton);
         }
 
-        item.addItems("all", "x", "y", "z", "xy", "xz", "yz", "xyz", "shape", "volume", "2Dxy", "2Dshape");
+        item.addItems("all", "ibrav", "a", "b", "c", "fixa", "fixb", "fixc", "x", "y", "z", "xy", "xz", "yz", "xyz", "shape", "volume", "2Dxy", "2Dshape", "epitaxial_ab", "epitaxial_ac", "epitaxial_bc");
 
         if (calcValue != null) {
             item.addEnablingTrigger(calcValue);
