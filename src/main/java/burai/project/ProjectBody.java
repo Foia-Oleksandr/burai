@@ -194,31 +194,21 @@ public class ProjectBody extends Project {
             throw new IOException(e2);
         }
 
-        AtomsReader reader = AtomsReader.getInstance(rootFile.getPath());
-        if (reader == null) {
-            throw new IOException("cannot create an AtomsReader.");
-        }
-
-        try {
+        try (AtomsReader reader = AtomsReader.getInstance(rootFile.getPath())) {
             this.cell = reader.readCell();
-        } catch (IOException e) {
-            //e.printStackTrace();
-            throw e;
-        } finally {
-            reader.close();
-        }
 
-        if (reader instanceof QEReader) {
-            QEInput input = ((QEReader) reader).getInput();
-            if (input == null) {
-                throw new IOException("cannot get QEInput from QEReader.");
+            if (reader instanceof QEReader) {
+                QEInput input = ((QEReader) reader).getInput();
+                if (input == null) {
+                    throw new IOException("cannot get QEInput from QEReader.");
+                }
+                this.setupInputGenerators(rootFile, input.getReader());
+                this.geomData.setQEInput(input);
+
+            } else {
+                this.setupInputGenerators(null, null);
+                this.geomData.setQEInput(new QEGeometryInput(this.cell));
             }
-            this.setupInputGenerators(rootFile, input.getReader());
-            this.geomData.setQEInput(input);
-
-        } else {
-            this.setupInputGenerators(null, null);
-            this.geomData.setQEInput(new QEGeometryInput(this.cell));
         }
     }
 

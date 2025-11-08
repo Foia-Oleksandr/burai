@@ -20,7 +20,7 @@ public interface Version {
 
     int MAJOR = 1;
     int MINOR = 3;
-    int PATCH = 3;
+    int PATCH = 4;
     String VERSION = MAJOR + "." + MINOR + "." + PATCH;
 
     /**

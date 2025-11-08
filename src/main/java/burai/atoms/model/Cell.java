@@ -18,6 +18,8 @@ package burai.atoms.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import burai.atoms.model.event.CellEvent;
 import burai.atoms.model.event.CellEventListener;
@@ -39,6 +41,9 @@ public class Cell extends Model<CellEvent, CellEventListener> {
     private static final double MIN_BOUNDARY = 3.0;
 
     private static final double THR_LATTICE = 1.0e-4;
+
+    private static final Pattern ATOM_WITH_OXIDATION_LEVEL =
+            Pattern.compile("(?<atom>[A-Za-z]+)(?<oxidation>\\d+[+-])?");
 
     private double[][] lattice;
 
@@ -585,7 +590,18 @@ public class Cell extends Model<CellEvent, CellEventListener> {
         double x = position[0];
         double y = position[1];
         double z = position[2];
-        return this.addAtom(new Atom(name, x, y, z));
+
+        String atomName = extractAtomName(name);
+
+        Atom atom = new Atom(atomName, x, y, z);
+
+        return addAtom(atom);
+    }
+
+    private String extractAtomName(String name) {
+        if (name == null) return null;
+        Matcher matcher = ATOM_WITH_OXIDATION_LEVEL.matcher(name);
+        return matcher.matches() ? matcher.group("atom") : name;
     }
 
     public boolean addAtom(Atom atom) {
